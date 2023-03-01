@@ -1,5 +1,11 @@
 # PanCake Farming 🥞
 
+masterChefV2 deployed to: 0xfB69EadC8ABD227198d7595967BeC0ff9ACb0e1e
+eggToken deployed to: 0x04829c5D9E6d4BD5a3f5bC83D2fB6aD480564105
+mockLPToken deployed to: 0x872b802E5fdd99783D324942a1E746b6Fd4fd3D7
+coolToken deployed to: 0x2cbEc7A6686Fb249E8d2325ab50956e2f3044f01
+Verify Contract Address: 0xfB69EadC8ABD227198d7595967BeC0ff9ACb0e1e
+
 [![Actions Status](https://github.com/pancakeswap/pancake-farm/workflows/CI/badge.svg)](https://github.com/pancakeswap/pancake-farm/actions)
 [![codecov](https://codecov.io/gh/pancakeswap/pancake-farm/branch/master/graph/badge.svg?token=5XMLP74IR0)](https://codecov.io/gh/pancakeswap/pancake-farm)
 

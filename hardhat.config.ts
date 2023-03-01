@@ -1,48 +1,105 @@
-import { task, HardhatUserConfig} from "hardhat/config";
+import "@nomiclabs/hardhat-truffle5";
 import "@nomiclabs/hardhat-waffle";
+import "hardhat-deploy";
+import "solidity-coverage";
+import "@nomiclabs/hardhat-etherscan";
+import "hardhat-dependency-compiler";
+import "hardhat-typechain";
+import "hardhat-tracer";
+import "hardhat-spdx-license-identifier";
+// yarn add @nomiclabs/hardhat-truffle5
+// yarn add @nomiclabs/hardhat-waffle
+// yarn add hardhat-deploy
+// yarn add solidity-coverage
+// yarn add @nomiclabs/hardhat-etherscan
+// yarn add hardhat-dependency-compiler
+// yarn add hardhat-typechain
+// yarn add hardhat-tracer
+// yarn add hardhat-spdx-license-identifier
+// yarn add @nomiclabs/hardhat-ethers
+// npx hardhat run scripts/deploy.ts --network bsc_testnet
+require("dotenv").config();
 
-const mnemonic = 'rib access win farm put frame unique search warrior blue verb priority'
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
-task("accounts", "Prints the list of accounts", async (args, hre) => {
-  const accounts = await hre.ethers.getSigners();
-
-  for (const account of accounts) {
-    console.log(account.address);
-  }
-});
-
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
-
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
-
-const config: HardhatUserConfig = {
-  solidity: "0.6.12",
-
+module.exports = {
+  defaultNetwork: "bsc_testnet",
   networks: {
-    localhost: {
-      url: "http://127.0.0.1:8545"
-    },
+
     hardhat: {
+      live: false,
+      tags: ["local"],
+      allowUnlimitedContractSize: true,
+      accounts: {
+        accountsBalance: "1000000000000000000000000",
+      },
     },
-    testnet: {
-      url: "https://data-seed-prebsc-1-s1.binance.org:8545",
+    bsc_testnet: {
+      url: "https://data-seed-prebsc-2-s2.binance.org:8545",
       chainId: 97,
-      gasPrice: 20000000000,
-      accounts: {mnemonic}
-    },
-    mainnet: {
+      accounts: [process.env.PRIVATE_KEY_TESTNET],
+    },/*
+    bsc_mainnet: {
+      live: true,
       url: "https://bsc-dataseed.binance.org/",
       chainId: 56,
-      gasPrice: 20000000000,
-      accounts: {mnemonic}
-    }
+      accounts: [process.env.PRIVATE_KEY_MAINNET],
+    },
+    eth_mainnet: {
+      live: true,
+      url: "https://mainnet.infura.io/v3/1ab9fb1648044c74be945d9d28214ac6",
+      chainId: 1,
+      accounts: [process.env.PRIVATE_KEY_MAINNET],
+    },
+    polygon: {
+      live: true,
+      url: "https://polygon-mainnet.infura.io/v3/1ab9fb1648044c74be945d9d28214ac6",
+      chainId: 137,
+      accounts: [process.env.PRIVATE_KEY_MAINNET],
+    },
+    avalanche: {
+      live: true,
+      url: "https://api.avax.network/ext/bc/C/rpc",
+      chainId: 43114,
+      accounts: [process.env.PRIVATE_KEY_MAINNET],
+    },
+    localhost: {
+      live: false,
+      tags: ["local"],
+      url: "http://127.0.0.1:8547",
+      accounts: [process.env.PRIVATE_KEY_LOCALHOST],
+      gas: "auto",
+    },*/
+  },
+  mocha: {
+    timeout: "100s",
+  },
+  paths: {
+    artifacts: "./artifacts",
+    cache: "./cache",
+    deploy: "deploy",
+    deployments: "deployments",
+    sources: "contracts",
+  },
+  solidity: {
+    compilers: [
+      {
+        version: "0.6.12",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 100,
+          },
+        },
+      },
+    ],
+  },
+  etherscan: {
+    apiKey: process.env.ETHERSCAN_API_KEY,
+  },
+  namedAccounts: {
+    deployer: {
+      default: 0,
+    },
   },
 };
 
-
-export default config;
-
+// Path: scripts/deploy.ts
